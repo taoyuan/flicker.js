@@ -20198,7 +20198,7 @@ Codec.encode = function (data, buf, start) {
         throw new TypeError('Usage:Codec.encode(string|array, [buf, start])');
     }
     if (!Buffer.isBuffer(data)) {
-        data = Buffer(data);
+        data = Buffer(data, 'ascii');
     }
 
     buf = buf || new Buffer(data.length * 10);

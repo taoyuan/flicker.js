@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flicker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #msg-block {
+            width: 100%;
+            padding: 10px;
+            background: none;
+        }
+    </style>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="../../dist/flicker.js"></script>
+</head>
+<body style="padding: 0">
+<div id="flicker-header">
+    <div style="padding-top: 20px"></div>
+    <div align="center">
+        <h1>Flicker</h1>
+    </div>
+    <div id="msg-block">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input id="message" type="text" class="form-control" placeholder="Message to flicker...">
+                <span class="input-group-btn">
+                    <button id="flicker" class="btn btn-default" type="button">Flicker</button>
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function flicker(message, done) {
+        var f = new Flicker();
+        f.add(Flicker.steps.Countdown);
+        f.add(Flicker.steps.Sender);
+
+        document.body.appendChild(f.view);
+
+        f.start(message, function () {
+            document.body.removeChild(f.view);
+            done && done();
+        });
+    }
+
+    $('#flicker').on('click', function () {
+        var elMessage = $('#message');
+        var msg = elMessage.val();
+        if (!msg || msg.length === 0) {
+            elMessage.focus();
+            return;
+        }
+        console.log(msg.length);
+        $('#flicker-header').hide();
+        flicker(msg, function () {
+            $('#flicker-header').show();
+        });
+    });
+</script>
+</body>
+</html>

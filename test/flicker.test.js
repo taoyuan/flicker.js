@@ -17,7 +17,7 @@ describe('Flicker', function () {
 
     describe('serializer', function () {
 
-        it.only('should serialize', function () {
+        it('should serialize', function () {
             var msg = 'hello';
             var buf = Flicker.serialize(Flicker.encode(msg));
             s.log(buf, 10);
