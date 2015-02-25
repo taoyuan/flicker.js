@@ -1,0 +1,15 @@
+{
+  "name": "flicker.js",
+  "version": "0.0.1",
+  "main": "dist/flicker.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "pixi.js": "~2.2.5"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "flicker.js",
+  "version": "0.0.1",
+  "description": "Flicker javascript library.",
+  "main": "dist/flicker.js",
+  "scripts": {
+    "postinstall": "bower install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "~1.8",
+    "grunt": "~0.4.1",
+    "grunt-bowercopy": "^1.2.0",
+    "grunt-browserify": "^3.3.0",
+    "grunt-concat-sourcemap": "~0.4",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "~0.3",
+    "grunt-contrib-connect": "~0.5",
+    "grunt-contrib-jshint": "~0.8",
+    "grunt-contrib-uglify": "~0.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-yuidoc": "~0.5",
+    "grunt-npmcopy": "0.1.0",
+    "gzip-js": "0.3.2",
+    "karma": "~0.12",
+    "karma-chrome-launcher": "~0.1",
+    "karma-firefox-launcher": "~0.1",
+    "karma-mocha": "~0.1",
+    "karma-spec-reporter": "~0.0.6",
+    "load-grunt-tasks": "3.1.0",
+    "mocha": "~1.15",
+    "pixi": "^0.2.1"
+  },
+  "dependencies": {
+    "buffer": "^3.0.3"
+  }
+}

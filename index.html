@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flicker</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: white;
+            background-color: #000000;
+        }
+    </style>
+    <script src="dist/flicker.js"></script>
+</head>
+<body>
+
+<script>
+
+    function flicker(message, done) {
+        var f = new Flicker();
+        f.add(Flicker.steps.Countdown);
+        f.add(Flicker.steps.Sender);
+
+        document.body.appendChild(f.view);
+
+        f.start(message, function () {
+            document.body.removeChild(f.view);
+            done && done();
+        });
+    }
+
+//    flicker('That\'s one small step for man; one giant leap for mankind.');
+    flicker('Hello World!');
+
+</script>
+This is Flicker demo.
+
+</body>
+</html>
