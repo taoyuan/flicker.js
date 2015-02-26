@@ -4,13 +4,12 @@
     <title>Flicker</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
-        #flicker-header {
-            position: absolute;
+        #content {
+            padding: 50px 10px 0;
             width: 100%;
         }
         #msg-block {
             width: 100%;
-            padding: 10px;
             background: none;
         }
     </style>
@@ -29,25 +28,36 @@
     <script src="../../dist/flicker.js"></script>
 </head>
 <body style="padding: 0">
-<div id="flicker-header" style="top: 50px">
-    <div align="center">
-        <h1>Flicker</h1>
-    </div>
-    <div id="msg-block">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="input-group">
-                    <input id="message" type="text" class="form-control" placeholder="Message to flicker...">
-                <span class="input-group-btn">
-                    <button id="flicker" class="btn btn-default" type="button">Flicker</button>
-                </span>
+<div id="content">
+    <div id="flicker-header">
+        <div align="center">
+            <h1>Flicker</h1>
+        </div>
+        <div id="msg-block">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input id="input-message" type="text" class="form-control" placeholder="Message to flicker...">
+                    <span class="input-group-btn">
+                        <button id="btn-start" class="btn btn-default" type="button">Start</button>
+                    </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="list-group" style="margin-top: 10px">
+        <a href="#" class="list-group-item">
+            Hello World!
+        </a>
+        <a href="#" class="list-group-item">
+            "Flicker" is a message transmission solution based on visible light communication.
+        </a>
+        <a href="#" class="list-group-item">
+            "Flicker" 是一个基于可见光通信技术的消息传输解决方案。
+        </a>
+    </div>
 </div>
-
-
 <script>
     function flicker(message, done) {
         var f = new Flicker(window.innerWidth, window.innerHeight);
@@ -67,28 +77,28 @@
     }
 
 
-    $('#flicker').on('click', function () {
-        var elMessage = $('#message');
+    $('#btn-start').on('click', function () {
+        var elMessage = $('#input-message');
         var msg = elMessage.val();
         if (!msg || msg.length === 0) {
             elMessage.focus();
             return;
         }
-        var header = $('#flicker-header');
-        header.hide();
-//        header.disable();
+        var elContent = $('#content');
+        elContent.hide();
         flicker(msg, function () {
-//            header.enable();
-            header.show();
+            elContent.show();
         });
     });
 
-    $('#message').keypress(function(event){
+    $('.list-group-item').on('click', function () {
+        $('#input-message').val($(this).text().trim());
+    });
 
+    $('#input-message').keypress(function(event){
         if (event.keyCode == 10 || event.keyCode == 13) {
-            $('#flicker').click();
+            $('#btn-start').click();
         }
-
     });
 </script>
 </body>

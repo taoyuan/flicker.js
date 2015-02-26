@@ -20130,7 +20130,7 @@ Flicker.steps = {
     Countdown: require('./lib/steps/countdown'),
     Sender: require('./lib/steps/Sender')
 };
-},{"./lib/flicker":4,"./lib/steps/Sender":6,"./lib/steps/countdown":7}],2:[function(require,module,exports){
+},{"./lib/flicker":5,"./lib/steps/Sender":7,"./lib/steps/countdown":8}],2:[function(require,module,exports){
 var Buffer = require('buffer/').Buffer;
 
 var CODEC_ENC = [
@@ -20222,7 +20222,57 @@ Codec.encode = function (data, buf, start) {
 Codec.encodeUInt16 = function (data, buf) {
     return Codec.encode([data & 0xFF, (data >> 8) & 0xFF], buf);
 };
-},{"buffer/":8}],3:[function(require,module,exports){
+},{"buffer/":9}],3:[function(require,module,exports){
+module.exports = Countdown;
+
+function Countdown(seconds, options) {
+    if (!(this instanceof Countdown)) {
+        return new Countdown(seconds, options);
+    }
+
+    if (typeof seconds !== 'number') {
+        options = seconds;
+        seconds = null;
+    }
+    seconds = seconds || 3;
+    options = options || {};
+
+    var that = this,
+        timer,
+        secs = seconds,
+        begin = options.begin || noop,
+        tick = options.tick || noop,
+        end = options.end || noop;
+
+    this.running = false;
+
+    function decrementCounter() {
+        tick(secs);
+        if (secs === 0) {
+            that.stop();
+        }
+        secs--;
+    }
+
+    this.start = function () {
+        this.stop();
+        this.running = true;
+        secs = seconds;
+        begin();
+        timer = setInterval(decrementCounter, 1000);
+    };
+
+    this.stop = function () {
+        if (timer) {
+            clearInterval(timer);
+            timer = 0;
+            end();
+        }
+        this.running = false;
+    };
+
+}
+},{}],4:[function(require,module,exports){
 var Buffer = require('buffer/').Buffer;
 
 var CRC_TABLE = [
@@ -20313,10 +20363,10 @@ exports.crc16 = function crc16(buf, crc) {
 
     return crc;
 };
-},{"buffer/":8}],4:[function(require,module,exports){
+},{"buffer/":9}],5:[function(require,module,exports){
 var Codec = require('./codec');
-var Serializer = require('./serializer').Serializer;
 var crc = require('./crc');
+var Serializer = require('./serializer').Serializer;
 var Buffer = require('buffer/').Buffer;
 
 var noop = function () {};
@@ -20460,8 +20510,10 @@ Flicker.serialize = function (data) {
     return serializer.buffer;
 };
 
+Flicker.Countdown = require('./countdown');
+
 exports.Flicker = Flicker;
-},{"./codec":2,"./crc":3,"./serializer":5,"buffer/":8}],5:[function(require,module,exports){
+},{"./codec":2,"./countdown":3,"./crc":4,"./serializer":6,"buffer/":9}],6:[function(require,module,exports){
 var Buffer = require('buffer/').Buffer;
 
 exports.Serializer = Serializer;
@@ -20499,7 +20551,7 @@ Serializer.prototype.write = function (value, num) {
 Serializer.prototype.reverse = function (num) {
     this.write(!this._state, num);
 };
-},{"buffer/":8}],6:[function(require,module,exports){
+},{"buffer/":9}],7:[function(require,module,exports){
 var Flicker = require('../flicker').Flicker;
 var crc = require('../crc');
 
@@ -20526,53 +20578,9 @@ module.exports = function (flicker, done) {
         }
     };
 };
-},{"../crc":3,"../flicker":4}],7:[function(require,module,exports){
+},{"../crc":4,"../flicker":5}],8:[function(require,module,exports){
 var Flicker = require('../flicker').Flicker;
 
-function Countdown(seconds, options) {
-
-    if (typeof seconds !== 'number') {
-        options = seconds;
-        seconds = null;
-    }
-    seconds = seconds || 3;
-    options = options || {};
-
-    var that = this,
-        timer,
-        secs = seconds,
-        begin = options.begin || noop,
-        tick = options.tick || noop,
-        end = options.end || noop;
-
-    this.running = false;
-
-    function decrementCounter() {
-        tick(secs);
-        if (secs === 0) {
-            that.stop();
-        }
-        secs--;
-    }
-
-    this.start = function () {
-        this.stop();
-        this.running = true;
-        secs = seconds;
-        begin();
-        timer = setInterval(decrementCounter, 1000);
-    };
-
-    this.stop = function () {
-        if (timer) {
-            clearInterval(timer);
-            timer = 0;
-            end();
-        }
-        this.running = false;
-    };
-
-}
 
 module.exports = function (flicker, done) {
 
@@ -20617,7 +20625,7 @@ module.exports = function (flicker, done) {
         textPoweredBy = null;
     }
 
-    var c = new Countdown(2, {
+    var c = Flicker.Countdown(2, {
         begin: function () {
             createTexts();
         },
@@ -20641,7 +20649,7 @@ module.exports = function (flicker, done) {
     }
 
 };
-},{"../flicker":4}],8:[function(require,module,exports){
+},{"../flicker":5}],9:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -21953,7 +21961,7 @@ function decodeUtf8Char (str) {
   }
 }
 
-},{"base64-js":9,"ieee754":10,"is-array":11}],9:[function(require,module,exports){
+},{"base64-js":10,"ieee754":11,"is-array":12}],10:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -22079,7 +22087,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -22165,7 +22173,7 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 /**
  * isArray

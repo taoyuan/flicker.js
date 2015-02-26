@@ -20,7 +20,7 @@ describe('Flicker', function () {
         it('should serialize', function () {
             var msg = 'hello';
             var buf = Flicker.serialize(Flicker.encode(msg));
-            s.log(buf, 10);
+            //s.log(buf, 10);
         });
     });
 });
