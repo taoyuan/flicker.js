@@ -2,8 +2,12 @@
 <html>
 <head>
     <title>Flicker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
+        #flicker-header {
+            position: absolute;
+            width: 100%;
+        }
         #msg-block {
             width: 100%;
             padding: 10px;
@@ -25,8 +29,7 @@
     <script src="../../dist/flicker.js"></script>
 </head>
 <body style="padding: 0">
-<div id="flicker-header">
-    <div style="padding-top: 20px"></div>
+<div id="flicker-header" style="top: 50px">
     <div align="center">
         <h1>Flicker</h1>
     </div>
@@ -47,7 +50,11 @@
 
 <script>
     function flicker(message, done) {
-        var f = new Flicker();
+        var f = new Flicker(window.innerWidth, window.innerHeight);
+        $(window).bind('resize', function() {
+            f.resize(window.innerWidth, window.innerHeight);
+        });
+
         f.add(Flicker.steps.Countdown);
         f.add(Flicker.steps.Sender);
 
@@ -59,6 +66,7 @@
         });
     }
 
+
     $('#flicker').on('click', function () {
         var elMessage = $('#message');
         var msg = elMessage.val();
@@ -66,11 +74,21 @@
             elMessage.focus();
             return;
         }
-        console.log(msg.length);
-        $('#flicker-header').hide();
+        var header = $('#flicker-header');
+        header.hide();
+//        header.disable();
         flicker(msg, function () {
-            $('#flicker-header').show();
+//            header.enable();
+            header.show();
         });
+    });
+
+    $('#message').keypress(function(event){
+
+        if (event.keyCode == 10 || event.keyCode == 13) {
+            $('#flicker').click();
+        }
+
     });
 </script>
 </body>

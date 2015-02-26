@@ -4,7 +4,7 @@
  * Copyright (c) 2012-2014, Yuan Tao
  * 
  *
- * Compiled: 2015-02-25
+ * Compiled: 2015-02-26
  *
  * flicker.js is licensed under the MIT License.
  * 
@@ -20198,7 +20198,7 @@ Codec.encode = function (data, buf, start) {
         throw new TypeError('Usage:Codec.encode(string|array, [buf, start])');
     }
     if (!Buffer.isBuffer(data)) {
-        data = Buffer(data, 'ascii');
+        data = Buffer(data);
     }
 
     buf = buf || new Buffer(data.length * 10);
