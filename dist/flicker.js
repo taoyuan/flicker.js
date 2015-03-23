@@ -4,7 +4,7 @@
  * Copyright (c) 2012-2014, Yuan Tao
  * 
  *
- * Compiled: 2015-02-26
+ * Compiled: 2015-03-23
  *
  * flicker.js is licensed under the MIT License.
  * 
@@ -20495,17 +20495,17 @@ Flicker.serialize = function (data) {
 
     var serializer = new Serializer();
     serializer.write(start);
-    for (var i = 0; i < 29; i++) {
+    for (var i = 0; i < 9; i++) {
         serializer.reverse();
     }
 
-    serializer.reverse(10);
-    serializer.reverse(10);
+    serializer.reverse(6);
+    serializer.reverse(6);
 
     serializer.write(data);
 
-    serializer.reverse(20);
-    serializer.reverse(20);
+    serializer.reverse(8);
+    serializer.reverse(8);
 
     return serializer.buffer;
 };
