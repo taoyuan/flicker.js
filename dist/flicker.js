@@ -4,7 +4,7 @@
  * Copyright (c) 2012-2014, Yuan Tao
  * 
  *
- * Compiled: 2015-03-23
+ * Compiled: 2015-03-26
  *
  * flicker.js is licensed under the MIT License.
  * 
@@ -20491,6 +20491,10 @@ Flicker.encode = function encode(message) {
 
 Flicker.serialize = function (data) {
 
+    if (typeof data === "string") {
+        data = Flicker.encode(data);
+    }
+
     var start = data[0];
 
     var serializer = new Serializer();
@@ -20499,13 +20503,13 @@ Flicker.serialize = function (data) {
         serializer.reverse();
     }
 
-    serializer.reverse(6);
-    serializer.reverse(6);
+    serializer.reverse(10);
+    serializer.reverse(10);
 
     serializer.write(data);
 
-    serializer.reverse(8);
-    serializer.reverse(8);
+    serializer.reverse(20);
+    serializer.reverse(20);
 
     return serializer.buffer;
 };
