@@ -1,6 +1,6 @@
 /**
  * @license
- * flicker.js - v0.0.2
+ * flicker.js - v0.1.0
  * Copyright (c) 2012-2014, Yuan Tao
  * 
  *
