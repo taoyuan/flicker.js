@@ -20,3 +20,11 @@ exports.log = function (list, cpl) { // cpl: count per line
     console.log(']');
 
 };
+
+exports.str2codes = function (str) {
+    var codes = [];
+    for (var i = 0; i < str.length; i++) {
+        codes.push(str.charCodeAt(i));
+    }
+    return codes;
+};

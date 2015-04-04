@@ -4,7 +4,6 @@ module.exports = function( grunt ) {
     require( 'load-grunt-tasks' )( grunt );
 
     var srcFiles = [
-            '<%= dirs.build %>/pixi.js/bin/pixi.dev.js',
             '<%= dirs.build %>/flicker.js'
         ],
         banner = [

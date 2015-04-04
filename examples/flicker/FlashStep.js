@@ -1,11 +1,8 @@
-var Flicker = require('../flicker').Flicker;
-var crc = require('../crc');
-
-module.exports = function (flicker, done) {
+function FlashStep(flicker, done) {
 
     var stage = flicker.stage;
 
-    var data = Flicker.serialize(Flicker.encode(flicker.data));
+    var data = Flicker.encode(flicker.data, true);
 
     var index = 0;
 
@@ -23,4 +20,4 @@ module.exports = function (flicker, done) {
             index = 0;
         }
     };
-};
+}

@@ -1,6 +1,6 @@
 {
   "name": "flicker.js",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Flicker javascript library.",
   "main": "dist/flicker.js",
   "scripts": {

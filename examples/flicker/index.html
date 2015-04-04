@@ -25,7 +25,13 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+    <script src="../../bower_components/pixi.js/bin/pixi.js"></script>
     <script src="../../dist/flicker.js"></script>
+    <script src="countdown.js"></script>
+
+    <script src="CountdownStep.js"></script>
+    <script src="FlashStep.js"></script>
+    <script src="FlickerUI.js"></script>
 </head>
 <body style="padding: 0">
 <div id="content">
@@ -59,14 +65,14 @@
     </div>
 </div>
 <script>
-    function flicker(message, done) {
-        var f = new Flicker(window.innerWidth, window.innerHeight);
+    function start(message, done) {
+        var f = new FlickerUI(window.innerWidth, window.innerHeight);
         $(window).bind('resize', function() {
             f.resize(window.innerWidth, window.innerHeight);
         });
 
-        f.add(Flicker.steps.Countdown);
-        f.add(Flicker.steps.Sender);
+        f.add(CountdownStep);
+        f.add(FlashStep);
 
         document.body.appendChild(f.view);
 
@@ -84,9 +90,12 @@
             elMessage.focus();
             return;
         }
+        msg = msg.replace(/\\r/g, "\r");
+        msg = msg.replace(/\\n/g, "\n");
+//        alert(msg);
         var elContent = $('#content');
         elContent.hide();
-        flicker(msg, function () {
+        start(msg, function () {
             elContent.show();
         });
     });
